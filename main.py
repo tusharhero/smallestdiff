@@ -25,6 +25,20 @@ def digitdiffone(digits, bignum, tinynum):
         else:
             bignum.append(digits[i])
 
+def brute(digits):
+    digits.sort()
+    length = len(digits)
+    permutations = []
+    num = []
+    i = 0
+    while i < length:
+        if i > length:
+            num = digits[(i+length//2):-i]
+        else:
+            num = digits[i:i+length//2]
+        permutations.append([num.copy()])
+        i += 1
+    return permutations
 def digitdiffneg(bignum, tinynum, length):
     for i in range(1,length//2):
         if bignum[i] > tinynum[i]:
@@ -45,6 +59,7 @@ def getnumbers(digits):
     length = len(digits)
     bignum = []
     tinynum = []
+
     digitdiffone(digits,bignum,tinynum)
 
     digitdiffneg(bignum,tinynum,length)
@@ -70,5 +85,7 @@ def find_min_diff(digits):
     return (diff , bignum, tinynum)
 
 digits = list("234678")
+
+print(brute(digits))
 ans = find_min_diff(digits)
 print(f"{ans[1]} - {ans[2]} = {ans[0]}")
